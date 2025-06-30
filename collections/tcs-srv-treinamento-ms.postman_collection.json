@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "e5e9b0c5-1e5f-4e86-88e9-7ea26215454a",
+		"name": "tcs-srv-treinamento-ms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46293452",
+		"_collection_link": "https://felipe-1807887.postman.co/workspace/Felipe's-Workspace~f11078d3-8e0b-482b-82c9-830ca3b310d4/collection/46293452-e5e9b0c5-1e5f-4e86-88e9-7ea26215454a?action=share&source=collection_link&creator=46293452"
+	},
+	"item": [
+		{
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"felipe\",\r\n  \"password\": \"minhaSenha123\",\r\n  \"department\": \"TI\",\r\n  \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario/salvar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar todos usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// transforma o body em JSON\r",
+							"let users = pm.response.json();\r",
+							"\r",
+							"// pega o primeiro usuário (ou muda o index pra quem quiser)\r",
+							"if (users.length > 0) {\r",
+							"  let firstId = users[0].id;\r",
+							"  // salva em variável de ambiente\r",
+							"  pm.environment.set(\"userId\", firstId);\r",
+							"  console.log(\"userId definido como\", firstId);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario/buscar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"buscar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar por Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario/buscar/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"buscar",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar usuario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"felipe_atualizado\",\r\n  \"password\": \"novaSenha!\",\r\n  \"department\": \"Marketing\",\r\n  \"active\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario/alterar/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"alterar",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario/deletar/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"deletar",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
